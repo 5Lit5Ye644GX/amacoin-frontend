@@ -1,0 +1,2 @@
+# amacoin
+Amaris crypto-assets
