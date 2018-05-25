@@ -8,10 +8,10 @@ This application aims to expose Amacoin Wallet Informations
 
     [
 	    {
-	        "address": "13nNUaNU1XHKbBvPNQXtFnbVbgbD3vfhf6LTts",
+	        "address": "13nNUaNU1XHKbBvPNQXtFnbVbgbD3vfhf6LTts"
 	    },
 	    {
-	        "address": "1ZESFph9SyhaxLrL1va4Qjq7cKVbuTh3BXozVj",
+	        "address": "1ZESFph9SyhaxLrL1va4Qjq7cKVbuTh3BXozVj"
 	    }
 	]
 
