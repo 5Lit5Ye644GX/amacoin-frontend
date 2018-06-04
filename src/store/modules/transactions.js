@@ -1,6 +1,6 @@
 import axios from "axios"
+import settings from "../../settings"
 
-const URL_API = "http://145.239.59.99:8080"
 export default {
   state:{
     error : "",
@@ -9,18 +9,25 @@ export default {
   mutations: {
     "transactions/set"(state, new_transactions) {
       state.list = new_transactions
+    },
+    "transactions/error"(state, new_transactionsError) {
+      state.error = new_transactionsError
     }
   },
   actions: {
     "transactions/refresh"(context) {
-      axios.get(URL_API+'/transactions')
+      axios.get(settings.URL_API+'/transactions')
       .then((response) => {
         context.commit("transactions/set", response.data)
       })
       .catch(function (error) {
-        //console.log(error)
-        //this.error = error
+        context.commit("transactions/error", error)
       })
     }
-  }
+  },
+  getters: {
+   transactions: state => {
+     return state.list
+   }
+ }
 }

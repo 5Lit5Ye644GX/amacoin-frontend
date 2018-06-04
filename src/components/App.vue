@@ -7,17 +7,17 @@
       </div>
       <div class="row">
         <account account="Account info"/>
-        <network network="network info"/>
+        <network v-bind:stats="stats"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Transactions from './components/Transactions.vue'
-import Account from './components/Account.vue'
-import Network from './components/Network.vue'
+import Header from './Header.vue'
+import Transactions from './Transactions.vue'
+import Account from './Account.vue'
+import Network from './Stats.vue'
 
 
 
@@ -31,21 +31,20 @@ export default {
     Network
   },
   mounted() {
-    this.$store.dispatch("transactions/refresh")
+    this.$store.dispatch("transactions/refresh"),
+    this.$store.dispatch("stats/refresh")
   },
   computed: {
     transactions() {
-      return this.$store.state.transactions.list
+      return this.$store.getters.transactions
+    },
+    stats() {
+      return this.$store.getters.stats
     }
   },
   methods:{
 
   }
-  // computed: {
-  //   transactions () {
-  //     return store.state.transactions
-  //   }
-  // }
 }
 
 
