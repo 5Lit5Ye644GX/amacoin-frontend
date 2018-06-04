@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  name: 'Send'
+  name: 'ModalSend'
 }
 </script>
 

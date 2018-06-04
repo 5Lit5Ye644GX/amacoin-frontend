@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: 'Receive',
+  name: 'ModalReceive',
 }
 </script>
 

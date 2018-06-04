@@ -7,7 +7,7 @@
       </div>
       <div class="row">
         <account account="Account info"/>
-        <network v-bind:stats="stats"/>
+        <stats v-bind:stats="stats"/>
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
 import Header from './Header.vue'
 import Transactions from './Transactions.vue'
 import Account from './Account.vue'
-import Network from './Stats.vue'
+import Stats from './Stats.vue'
 
 
 
@@ -28,7 +28,7 @@ export default {
     Header,
     Transactions,
     Account,
-    Network
+    Stats
   },
   mounted() {
     this.$store.dispatch("transactions/refresh"),

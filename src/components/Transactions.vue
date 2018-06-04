@@ -4,7 +4,7 @@
 
       <div class="card-body">
         <h6 class="text-uppercase">Recent transactions !</h6>
-
+        <hr>
         <div class="row" v-if="error">
           <div class="alert alert-danger" role="alert">
             {{error}}
@@ -13,28 +13,14 @@
         <div class="content">
 
           <div v-if="!transactions">
-              <hr>
+            <hr>
             <i class="fas fa-exchange-alt my-1"></i>
             <br>
             <span>You have no transactions yet</span>
           </div>
-          <table class="table text-left" v-if="transactions">
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Transactions</th>
-                <th scope="col">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <transaction-item v-for="transaction in transactions" v-bind:transaction="transaction"/>
-            </tbody>
-          </table>
+          <transaction-item  v-for="transaction in transactions" v-bind:transaction="transaction"/>
         </div>
         <hr>
-        <div class="text-center">
-          <a href="#" class="card-link btn btn-dark" @click="reloadTransactionItem()">Refresh <i class="fas fa-sync-alt"></i></a>
-        </div>
       </div>
     </div>
   </div>
@@ -53,11 +39,6 @@ export default {
   props: {
     error: String,
     transactions: Array
-  },
-  methods: {
-    reloadTransactionItem(){
-      this.$store.dispatch("transactions/refresh")
-    }
   }
 }
 </script>
