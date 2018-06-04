@@ -4,18 +4,20 @@
 
       <div class="card-body">
         <h6 class="text-uppercase">Recent transactions !</h6>
-        <hr>
+
+        <div class="row" v-if="error">
+          <div class="alert alert-danger" role="alert">
+            {{error}}
+          </div>
+        </div>
         <div class="content">
 
           <div v-if="!transactions">
+              <hr>
             <i class="fas fa-exchange-alt my-1"></i>
             <br>
             <span>You have no transactions yet</span>
           </div>
-          
-
-
-
           <table class="table text-left" v-if="transactions">
             <thead>
               <tr>
@@ -25,26 +27,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="transaction in transactions">
-                <td>{{ transaction.date }}</td>
-                <td>
-                  <span class="badge badge-warning"><i class="fas fa-link"></i></span>
-                  {{ transaction.from }}
-                  <span class="badge badge-warning"><i class="fas fa-arrow-right"></i></span>
-                  {{ transaction.from }}
-                </td>
-                <td>+{{ transaction.amount }}<span class="badge badge-warning">AMA</span></td>
-              </tr>
+              <transaction-item v-for="transaction in transactions" v-bind:transaction="transaction"/>
             </tbody>
           </table>
-
-
-
-
         </div>
         <hr>
         <div class="text-center">
-          <a href="#" class="card-link btn btn-dark">Refresh <i class="fas fa-sync-alt"></i></a>
+          <a href="#" class="card-link btn btn-dark" @click="reloadTransactionItem()">Refresh <i class="fas fa-sync-alt"></i></a>
         </div>
       </div>
     </div>
@@ -53,17 +42,25 @@
 
 
 <script>
+"use strict";
+// const URL_API = "http://145.239.59.99:8080"
+//
+// let axios = require("axios")
+import TransactionItem from './TransactionItem.vue'
+
 export default {
+  components:{
+    TransactionItem
+  },
   name: 'Transactions',
-  props: [
-    "transactions"
-  ]
+  props: {
+    error: String,
+    transactions: Array
+  },
+  methods: {
+    reloadTransactionItem(){
+      this.$store.dispatch("transactions/refresh")
+    }
+  }
 }
 </script>
-<style media="screen" scoped>
-
-i{
-  font-size: 15px !important;
-}
-
-</style>

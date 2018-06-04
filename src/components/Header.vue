@@ -1,7 +1,7 @@
 <template>
   <header class="container-fluid" id="grad">
     <div class="container">
-      <div class="col-12">
+      <div class="col-12 py-2">
         <img src="/img/logo_amaris3.png" width="100px" alt="">
       </div>
       <Balance balance="0,0"/>

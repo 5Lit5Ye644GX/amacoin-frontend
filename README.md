@@ -117,3 +117,4 @@ This application aims to expose Amacoin Wallet Informations
     }
 
    
+# amacoin-frontend
