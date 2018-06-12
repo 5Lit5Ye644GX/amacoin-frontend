@@ -7,6 +7,9 @@
             <img src="/img/logo_amaris3.png" width="100px" alt="">
           </div>
           <div class="p-2">
+            <Connection id="buttonSetUp" btnId="setUpButton" datatarget="#buttonSetUp"/>
+          </div>
+          <div class="p-2">
             <div class="text-center">
               <a href="#" class="card-link btn btn-outline-secondary" @click="reloadTransactionItem()">Refresh <i class="fas fa-sync-alt"></i></a>
             </div>
@@ -14,13 +17,11 @@
         </div>
         <Balance v-bind:balance="balance"/>
         <Menu/>
-        <ModalReceive/>
-        <ModalSend/>
       </div>
     </header>
     <div class="d-flex justify-content-center d-block d-sm-none">
-      <ButtonReceive/>
-      <ButtonSend/>
+      <ModalReceive id="modal-receive" datatarget="#modal-receive"/>
+      <ModalSend id="modal-send" datatarget="#modal-send"/>
     </div>
   </div>
 </template>
@@ -31,8 +32,7 @@ import Balance from './Balance.vue'
 import Menu from './Menu.vue'
 import ModalReceive from './modal/Receive.vue'
 import ModalSend from './modal/Send.vue'
-import ButtonReceive from './buttons/Receive.vue'
-import ButtonSend from './buttons/Send.vue'
+import Connection from './modal/Connection.vue'
 
 export default {
   name: 'Header',
@@ -41,8 +41,7 @@ export default {
     Balance,
     ModalReceive,
     ModalSend,
-    ButtonReceive,
-    ButtonSend
+    Connection
   },
   mounted() {
     this.$store.dispatch("balance/refresh")
@@ -57,6 +56,7 @@ export default {
       this.$store.dispatch("transactions/refresh")
       this.$store.dispatch("balance/refresh")
       this.$store.dispatch("stats/refresh")
+      this.$store.dispatch("addresses/refresh")
     }
   }
 }
@@ -72,7 +72,7 @@ export default {
 
 @media screen and (max-width: 575px) {
   #grad {
-        margin-bottom: 25px;
+    margin-bottom: 25px;
   }
 }
 </style>

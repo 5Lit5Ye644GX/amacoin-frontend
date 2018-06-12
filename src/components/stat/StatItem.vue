@@ -1,10 +1,10 @@
 <template>
-  <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+
+  <li class="border-0 list-group-item d-flex justify-content-between align-items-center">
     {{ stat.key }}
     <span class="badge badge-success badge-pill">{{ stat.value }}</span>
   </li>
-</ul>
+
 </template>
 <script>
 export default {

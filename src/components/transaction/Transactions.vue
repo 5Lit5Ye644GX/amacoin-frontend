@@ -11,29 +11,31 @@
           </div>
         </div>
         <div class="content">
-
-          <div v-if="!transactions">
-            <hr>
-            <i class="fas fa-exchange-alt my-1"></i>
-            <br>
-            <span>You have no transactions yet</span>
-          </div>
-          <transaction-item  v-for="transaction in transactions" v-bind:transaction="transaction"/>
+          <NoTransaction v-if="!transactions"/>
+          <ul v-if="transactions" class="list-group">
+            <TransactionItem v-for="transaction in transactions" v-bind:transaction="transaction" v-bind:key="transaction.date"/>
+          </ul>
         </div>
         <hr>
       </div>
     </div>
   </div>
+
+
+
+
 </template>
 
 
 <script>
 
 import TransactionItem from './TransactionItem.vue'
+import NoTransaction from './NoTransaction.vue'
 
 export default {
   components:{
-    TransactionItem
+    TransactionItem,
+    NoTransaction
   },
   name: 'Transactions',
   props: {

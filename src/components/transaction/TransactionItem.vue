@@ -1,5 +1,5 @@
 <template>
-
+<li class="list-group-item border-0">
   <div class="d-flex justify-content-lg-between justify-content-md-center justify-content-sm-center justify-content-xs-center flex-wrap py-3">
     <div class="px-2">{{ date }}</div>
   <div class="d-flex flex-wrap">
@@ -15,7 +15,7 @@
   </div>
     <div class="px-2">+{{ transaction.amount }}<span class="badge badge-warning">AMA</span></div>
   </div>
-
+</li>
 </template>
 
 <script>

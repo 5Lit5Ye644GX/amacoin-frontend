@@ -5,7 +5,10 @@
         <h6 class="text-uppercase">Network</h6>
         <hr>
         <div class="content py-">
-          <stat-item v-for="stat in stats" v-bind:stat="stat"/>
+          <ul class="list-group">
+<stat-item v-for="stat in stats" v-bind:stat="stat" v-bind:key="stat.key"/>
+</ul>
+
         </div>
       </div>
     </div>

@@ -14,8 +14,8 @@
       </div>
       <div class="d-none d-sm-block">
         <div class="d-flex" style="height:40px;">
-          <ButtonReceive/>
-          <ButtonSend/>
+          <ModalReceive id="modal-receive" datatarget="#modal-receive"/>
+          <ModalSend id="modal-send" datatarget="#modal-send"/>
         </div>
       </div>
 
@@ -27,13 +27,13 @@
 
 <script>
 
-import ButtonReceive from './buttons/Receive.vue'
-import ButtonSend from './buttons/Send.vue'
+import ModalReceive from './modal/Receive.vue'
+import ModalSend from './modal/Send.vue'
 
 export default {
   components: {
-    ButtonReceive,
-    ButtonSend
+    ModalReceive,
+    ModalSend
   },
   name: 'Menu',
   props: {

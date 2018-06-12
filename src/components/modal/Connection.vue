@@ -2,16 +2,14 @@
 
 
 <template>
+
   <div>
-
-    <button class="btn btn-receive" type="submit" data-toggle="modal" v-bind:data-target="datatarget"></button>
-    <div class="btn-text">Receive</div>
-
+    <button class="btn btn-primary" type="submit" v-bind:btnId="btnId" data-toggle="modal" v-bind:data-target="datatarget">Set up</button>
     <div class="modal fade" v-bind:id="id" tabindex="-1" role="dialog" aria-labelledby="receive-modalTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Transaction request</h5>
+            <h5 class="modal-title" id="send-modal-title">Connection</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -21,35 +19,45 @@
               <div class="form-group row">
                 <label for="send-from" class="col-sm-4 col-form-label">Your address : </label>
                 <div class="col-sm-8">
-                  <input type="text" readonly class="form-control-plaintext" id="send-from" value="AMA015TUE5V8EU">
+                  <input type="text" class="form-control" :value="address" id="send-from" placeholder="Enter your address here">
                 </div>
               </div>
               <div class="form-group row">
-                <label for="send-to" class="col-sm-4 col-form-label">Send to : </label>
+                <label for="send-to" class="col-sm-4 col-form-label">Your private key : </label>
                 <div class="col-sm-8">
-                  <img src="/img/qrcode.svg" alt="" width="100px">
+                  <input type="text" class="form-control" :value="privateKey" placeholder="Enter your private key here">
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-qrcode" type="submit"></button>
             <button type="button" class="btn btn-amaris">Send</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
+
 export default {
-  name: 'ModalReceive',
+  name: 'ModalConnection',
   props: {
     datatarget: String,
-    id: String
+    id: String,
+    btnId: String
   },
+  computed:{
+    address(){
+      return this.$store.getters.address
+    },
+    privateKey(){
+    return this.$store.getters.privateKey
+    }
+  }
 }
 </script>
 
@@ -57,10 +65,10 @@ export default {
 .modal{
   color:#484849;
 }
-.btn-receive{
+.btn-qrcode{
   border: 1px solid transparent;
-  width: 60px !important;
-  height: 60px !important;
+  width: 40px !important;
+  height: 40px !important;
   border-radius: 50%;
   background-color: white;
   background-position: center !important;
@@ -71,22 +79,12 @@ export default {
   position: relative;
   padding: 0;
   min-height: 0;
-  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.2), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  background-image: url(/img/qrcode.svg);
 }
-.btn-receive{
-  background-image: url(/img/arrow-down.svg);
-}
-@media screen and (max-width: 575px) {
-  .btn-receive{
-    width: 100px !important;
-    height: 50px !important;
-    border-radius: 50px;
-  }
+label{
+  /* text-transform: uppercase; */
 }
 
-.btn-text{
-  text-align: center;
-  color:#494948;
-  margin: 5px 0;
-}
+
+
 </style>
