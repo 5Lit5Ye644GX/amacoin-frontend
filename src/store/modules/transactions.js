@@ -19,7 +19,9 @@ export default {
   },
   actions: {
     "transactions/refresh"(context) {
-      axios.get(URL_TRANSACTIONS)
+      var address = localStorage.getItem("address")
+      var privateKey = localStorage.getItem("privateKey")
+      axios.get(URL_TRANSACTIONS, { 'headers': { 'Authorization': address + "$" + privateKey } })
       .then((response) => {
         context.commit("transactions/set", response.data)
       })
@@ -34,7 +36,7 @@ export default {
         }
       })
       .then((response) => {
-        
+
       })
       .catch(function (error) {
         context.commit("transactions/error", error)

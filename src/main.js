@@ -4,8 +4,14 @@ import App from './components/App.vue'
 import store from './store/index'
 
 import VueRouter from 'vue-router'
+import BootstrapVue from 'bootstrap-vue'
 
+Vue.use(BootstrapVue);
 Vue.use(VueRouter)
+
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 // 1. Define route components.
 // These can be imported from other files
@@ -32,5 +38,6 @@ const router = new VueRouter({
 new Vue({
   render: h => h(App),
   store,
-  router
+  router,
+  BootstrapVue
 }).$mount('#app')

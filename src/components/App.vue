@@ -31,11 +31,10 @@ export default {
     Stats
   },
   mounted() {
-    this.$store.dispatch("transactions/refresh")
-    this.$store.dispatch("stats/refresh")
-    this.$store.dispatch("addresses/refresh")
     this.$store.dispatch("app/refresh")
-
+    this.$store.dispatch("stats/refresh")
+    this.$store.dispatch("transactions/refresh")
+    this.$store.dispatch("addresses/refresh")
 
     var addrPrivateKey = this.$route.params.addrPrivateKey
 
@@ -47,15 +46,7 @@ export default {
     }else if(addr != null && addr != "" && privateKey != null && privateKey != ""){
 
     }else{
-      // console.log("toto")
-      // document.getElementById("setUpButton").click(); // Click on the checkbox
-    }
-
-
-
-
-    if (addr == "" || addr == undefined && privateKey == "" || privateKey == undefined){
-      this.setAddrAndPrivateKeyInLocalStorage()
+      // ouvrir la popup
     }
 
   },
