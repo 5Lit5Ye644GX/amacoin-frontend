@@ -19,8 +19,7 @@ export default {
   actions: {
     "balance/refresh"(context) {
       var address = localStorage.getItem("address")
-      var privateKey = localStorage.getItem("privateKey")
-      axios.get(settings.URL_API+'/balance',{ 'headers': { 'Authorization': address + "$" + privateKey } })
+      axios.get(settings.URL_API+'/balance',{ 'headers': { 'Authorization': address } })
       .then((response) => {
         context.commit("balance/set", response.data.balance)
       })

@@ -6,10 +6,10 @@
         <hr>
         <div class="content">
 
-          <ul v-if="addresses" class="list-group">
+          <ul v-if="addresses.length > 0" class="list-group">
             <AddressItem v-for="address in addresses" v-bind:address="address" v-bind:key="address.address"/>
           </ul>
-          <NoAddress v-else/>
+          <NoAddress v-if="addresses.length == 0"/>
         </div>
         <hr>
       </div>

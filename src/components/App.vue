@@ -21,7 +21,6 @@ import Stats from './stat/Stats.vue'
 
 
 
-
 export default {
   name: 'App',
   components: {
@@ -31,11 +30,6 @@ export default {
     Stats
   },
   mounted() {
-    this.$store.dispatch("app/refresh")
-    this.$store.dispatch("stats/refresh")
-    this.$store.dispatch("transactions/refresh")
-    this.$store.dispatch("addresses/refresh")
-
     var addrPrivateKey = this.$route.params.addrPrivateKey
 
     var addr = localStorage.getItem('addr')
@@ -47,7 +41,14 @@ export default {
 
     }else{
       // ouvrir la popup
+      this.$children[0].$children[4].$refs.modal_connection.show()
+      console.log(this)
     }
+
+    this.$store.dispatch("app/refresh")
+    this.$store.dispatch("stats/refresh")
+    this.$store.dispatch("transactions/refresh")
+    this.$store.dispatch("addresses/refresh")
 
   },
   computed: {

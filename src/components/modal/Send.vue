@@ -1,7 +1,28 @@
 <template>
   <div>
 
-      <button class="btn btn-send" type="submit" data-toggle="modal" v-bind:data-target="datatarget"></button>
+
+
+    <b-btn v-b-modal.modalSend class="btn btn-send"></b-btn>
+    <div class="btn-text">Send</div>
+    <b-modal id="modalSend" ref="modal_connection" centered title="Submit your name" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
+      <form @submit.stop.prevent="handleSubmit">
+        <b-alert :show="dismissCountDown" dismissible variant="danger" @dismissed="dismissCountDown=0" @dismiss-count-down="countDownChanged">
+          <p>{{form.error}}</p>
+        </b-alert>
+
+        <b-form-group label="Your address : " label-for="address">
+          <b-form-input id="address" readonly type="email" v-model="form.address" v-bind:value="address" required placeholder="Enter your address"></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="Your private key : " label-for="privateKey">
+          <b-form-input id="privateKey" type="text" v-model="form.privateKey" v-bind:value="privateKey" required placeholder="Enter private key"></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
+
+
+      <!-- <button class="btn btn-send" type="submit" data-toggle="modal" v-bind:data-target="datatarget"></button>
       <div class="btn-text">Send</div>
 
     <div class="modal fade" v-bind:id="id" tabindex="-1" role="dialog" aria-labelledby="receive-modalTitle" aria-hidden="true">
@@ -48,7 +69,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -59,6 +80,18 @@ import AddressesDatalist from '../address/AddressesDatalist.vue'
 export default {
   components:{
     AddressesDatalist
+  },
+  data () {
+    return {
+      form:{
+        address:"",
+        privateKey:"",
+        error: ""
+      },
+      dark: "dark",
+      dismissSecs: 10,
+      dismissCountDown: 0
+    }
   },
   name: 'ModalSend',
   props: {

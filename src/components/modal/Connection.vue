@@ -1,60 +1,21 @@
-
-
-
 <template>
-
   <div>
+    <b-btn v-b-modal.modalPrevent>Setup</b-btn>
+    <b-modal id="modalPrevent" ref="modal_connection" centered title="Submit your name" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
+      <form @submit.stop.prevent="handleSubmit">
+        <b-alert :show="dismissCountDown" dismissible variant="danger" @dismissed="dismissCountDown=0" @dismiss-count-down="countDownChanged">
+          <p>{{form.error}}</p>
+        </b-alert>
 
-    <b-button @click="showModal">Set up</b-button>
+        <b-form-group label="Your address : " label-for="address">
+          <b-form-input id="address" type="email" v-model="form.address" v-bind:value="address" required placeholder="Enter your address"></b-form-input>
+        </b-form-group>
 
-
-    <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
-          <div class="d-block text-center">
-            <h3>Hello From My Modal!</h3>
-          </div>
-          <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
-        </b-modal>
-
-
-
-    <button class="btn btn-primary" type="submit" v-bind:btnId="btnId" data-toggle="modal" v-bind:data-target="datatarget">Set up</button>
-    <div class="modal fade" v-bind:id="id" tabindex="-1" role="dialog" aria-labelledby="receive-modalTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="send-modal-title">Connection</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-
-
-
-            <b-form v-if="show">
-
-              <b-form-group label="Your address : " label-for="address">
-                <b-form-input id="address" type="email" v-model="form.address" v-bind:value="address" required placeholder="Enter your address"></b-form-input>
-              </b-form-group>
-
-              <b-form-group label="Your private key : " label-for="privateKey">
-                <b-form-input id="privateKey" type="text" v-model="form.privateKey" v-bind:value="privateKey" required placeholder="Enter private key"></b-form-input>
-              </b-form-group>
-
-
-
-            </b-form>
-
-          </div>
-          <div class="modal-footer">
-            <b-button @click="onSubmit" type="submit" variant="primary">Submit</b-button>
-            <b-button @click="onReset" type="reset" variant="danger">Reset</b-button>
-            <b-button class="btn btn-qrcode" @click="openQrReader" type="button"></b-button>
-          </div>
-        </div>
-      </div>
-    </div>
+        <b-form-group label="Your private key : " label-for="privateKey">
+          <b-form-input id="privateKey" type="text" v-model="form.privateKey" v-bind:value="privateKey" required placeholder="Enter private key"></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
   </div>
 </template>
 
@@ -79,9 +40,12 @@ export default {
     return {
       form:{
         address:"",
-        privateKey:""
+        privateKey:"",
+        error: ""
       },
-      show: true
+      dark: "dark",
+      dismissSecs: 10,
+      dismissCountDown: 0
     }
   },
   methods: {
@@ -93,18 +57,40 @@ export default {
     },
     openQrReader (){
     },
-    showModal () {
-      this.$refs.myModalRef.show()
+    setForm(){
+      this.form.address = this.$store.getters.address
+      this.form.privateKey = this.$store.getters.privateKey
     },
-    hideModal () {
-      this.$refs.myModalRef.hide()
+    handleOk (evt) {
+      evt.preventDefault()
+      if(this.form.address == "" && this.form.address == undefined && this.form.privateKey == "" && this.form.privateKey == undefined){
+        this.form.error = "The field as required"
+        this.showAlert()
+      }else{
+        this.handleSubmit()
+      }
+    },
+    handleSubmit () {
+      localStorage.setItem("address",this.form.address)
+      localStorage.setItem("privateKey",this.form.privateKey)
+
+      this.$store.commit("app/address", this.form.address)
+      this.$store.commit("app/privateKey", this.form.privateKey)
+
+      this.$refs.modal_connection.hide()
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
     }
   }
 }
 </script>
 
 <style media="screen" scoped>
-.modal{
+header{
   color:#484849;
 }
 .btn-qrcode{

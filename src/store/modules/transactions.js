@@ -21,7 +21,7 @@ export default {
     "transactions/refresh"(context) {
       var address = localStorage.getItem("address")
       var privateKey = localStorage.getItem("privateKey")
-      axios.get(URL_TRANSACTIONS, { 'headers': { 'Authorization': address + "$" + privateKey } })
+      axios.get(URL_TRANSACTIONS, { 'headers': { 'Authorization': address } })
       .then((response) => {
         context.commit("transactions/set", response.data)
       })
@@ -32,7 +32,7 @@ export default {
     "transactions/send"(context) {
       axios.post(URL_TRANSACTIONS,transaction,{
         headers:{
-          'Authorization': "Paste addresses here"
+          'Authorization': address + "$" + privateKey
         }
       })
       .then((response) => {

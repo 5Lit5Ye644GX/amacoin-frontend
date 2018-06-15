@@ -11,10 +11,10 @@
           </div>
         </div>
         <div class="content">
-          <NoTransaction v-if="!transactions"/>
-          <ul v-if="transactions" class="list-group">
+          <ul v-if="transactions.length > 0" class="list-group">
             <TransactionItem v-for="transaction in transactions" v-bind:transaction="transaction" v-bind:key="transaction.date"/>
           </ul>
+          <NoTransaction v-if="transactions.length == 0"/>
         </div>
         <hr>
       </div>

@@ -7,7 +7,7 @@
             <img src="/img/logo_amaris3.png" width="100px" alt="">
           </div>
           <div class="p-2">
-            <Connection id="buttonSetUp" btnId="setUpButton" datatarget="#buttonSetUp"/>
+            <ModalConnection id="buttonSetUp" btnId="setUpButton" datatarget="#buttonSetUp"/>
           </div>
           <div class="p-2">
             <div class="text-center">
@@ -32,7 +32,7 @@ import Balance from './Balance.vue'
 import Menu from './Menu.vue'
 import ModalReceive from './modal/Receive.vue'
 import ModalSend from './modal/Send.vue'
-import Connection from './modal/Connection.vue'
+import ModalConnection from './modal/Connection.vue'
 
 export default {
   name: 'Header',
@@ -41,7 +41,7 @@ export default {
     Balance,
     ModalReceive,
     ModalSend,
-    Connection
+    ModalConnection
   },
   mounted() {
     this.$store.dispatch("balance/refresh")
