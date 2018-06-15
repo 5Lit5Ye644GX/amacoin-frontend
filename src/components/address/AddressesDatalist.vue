@@ -1,6 +1,6 @@
 <template>
   <datalist v-bind:id="id">
-    <option v-for="address in addresses" v-bind:key="address.address">{{ address.address }}</option>
+    <option v-for="address in addresses" v-bind:key="address.address">{{ address }}</option>
   </datalist>
 </template>
 

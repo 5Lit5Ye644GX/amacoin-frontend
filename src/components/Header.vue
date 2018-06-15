@@ -20,8 +20,8 @@
       </div>
     </header>
     <div class="d-flex justify-content-center d-block d-sm-none">
-      <ModalReceive id="modal-receive" datatarget="#modal-receive"/>
-      <ModalSend id="modal-send" datatarget="#modal-send"/>
+      <ModalReceive/>
+      <ModalSend/>
     </div>
   </div>
 </template>

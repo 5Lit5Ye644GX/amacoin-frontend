@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-btn v-b-modal.modalPrevent>Setup</b-btn>
-    <b-modal id="modalPrevent" ref="modal_connection" centered title="Submit your name" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
+    <b-modal id="modalPrevent" ref="modal_connection" centered title="Connection setup" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
       <form @submit.stop.prevent="handleSubmit">
         <b-alert :show="dismissCountDown" dismissible variant="danger" @dismissed="dismissCountDown=0" @dismiss-count-down="countDownChanged">
           <p>{{form.error}}</p>
@@ -48,7 +48,27 @@ export default {
       dismissCountDown: 0
     }
   },
+  mounted(){
+    var addrPrivateKey = this.$route.params.addrPrivateKey
+
+    var addr = localStorage.getItem('addr')
+    var privateKey = localStorage.getItem('privateKey')
+
+    if(addrPrivateKey != "" && addrPrivateKey != undefined){
+      this.setAddrAndPrivateKeyInLocalStorage(addrPrivateKey)
+    }else if(addr != null && addr != "" && privateKey != null && privateKey != ""){
+
+    }else{
+      this.$refs.modal_connection.show()
+    }
+  },
   methods: {
+    setAddrAndPrivateKeyInLocalStorage(addrPrivateKey){
+      if (addrPrivateKey != null || addrPrivateKey != undefined){
+        localStorage.setItem('addr', addrPrivateKey.split("$")[0])
+        localStorage.setItem('privateKey', addrPrivateKey.split("$")[1])
+      }
+    },
     onSubmit () {
       console.log(this.form.address)
     },
@@ -63,7 +83,7 @@ export default {
     },
     handleOk (evt) {
       evt.preventDefault()
-      if(this.form.address == "" && this.form.address == undefined && this.form.privateKey == "" && this.form.privateKey == undefined){
+      if(this.form.address == "" || this.form.address == undefined || this.form.privateKey == "" || this.form.privateKey == undefined){
         this.form.error = "The field as required"
         this.showAlert()
       }else{

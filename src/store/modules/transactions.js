@@ -10,6 +10,9 @@ export default {
     list: []
   },
   mutations: {
+    "transaction/set"(state, new_transaction) {
+      state.transaction = new_transaction
+    },
     "transactions/set"(state, new_transactions) {
       state.list = new_transactions
     },
@@ -30,13 +33,13 @@ export default {
       })
     },
     "transactions/send"(context) {
-      axios.post(URL_TRANSACTIONS,transaction,{
+      axios.post(URL_TRANSACTIONS,context.getters.transaction,{
         headers:{
           'Authorization': address + "$" + privateKey
         }
       })
       .then((response) => {
-
+        context.commit("transaction/set", response.data)
       })
       .catch(function (error) {
         context.commit("transactions/error", error)
@@ -44,8 +47,11 @@ export default {
     }
   },
   getters: {
-   transactions: state => {
-     return state.list
-   }
- }
+    transactions: state => {
+      return state.list
+    },
+    transaction: state => {
+      return state.transaction
+    }
+  }
 }

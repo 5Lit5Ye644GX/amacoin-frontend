@@ -1,55 +1,60 @@
-
-
-
 <template>
   <div>
-
-    <button class="btn btn-receive" type="submit" data-toggle="modal" v-bind:data-target="datatarget"></button>
+    <b-btn v-b-modal.modalReceive class="btn btn-receive"></b-btn>
     <div class="btn-text">Receive</div>
-
-    <div class="modal fade" v-bind:id="id" tabindex="-1" role="dialog" aria-labelledby="receive-modalTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Transaction request</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group row">
-                <label for="send-from" class="col-sm-4 col-form-label">Your address : </label>
-                <div class="col-sm-8">
-                  <input type="text" readonly class="form-control-plaintext" id="send-from" value="AMA015TUE5V8EU">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="send-to" class="col-sm-4 col-form-label">Send to : </label>
-                <div class="col-sm-8">
-                  <img src="/img/qrcode.svg" alt="" width="100px">
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-amaris">Send</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <b-modal id="modalReceive" ref="modal_receive" centered title="Connection setup" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
+      <form @submit.stop.prevent="handleSubmit" class="text-center">
+  <h4><b-badge>{{address}}</b-badge></h4>
+        <Qrcode :value="address" :options="qrcode_options"/>
+      </form>
+    </b-modal>
   </div>
-
 </template>
 
 <script>
+import Qrcode from '@xkeshi/vue-qrcode'
 export default {
+  components:{
+    Qrcode
+  },
   name: 'ModalReceive',
   props: {
     datatarget: String,
     id: String
   },
+  computed:{
+    address(){
+      return this.$store.getters.address
+    },
+  },
+  data () {
+    return {
+      qrcode_options:{
+        size:200,
+        foreground: "#ef8b1b"
+      },
+      form:{
+        address:"",
+        error: ""
+      },
+      dark: "dark",
+      dismissSecs: 10,
+      dismissSendErrorCountDown: 0
+    }
+  },
+  methods: {
+    setForm(){
+      this.form.address = this.$store.getters.address
+    },
+    handleOk (evt) {
+      evt.preventDefault()
+    },
+    handleSubmit () {
+      this.$refs.modal_receive.hide()
+    },
+    handleCancel () {
+    }
+  }
 }
 </script>
 
