@@ -43,9 +43,6 @@ export default {
     ModalSend,
     ModalConnection
   },
-  mounted() {
-    this.$store.dispatch("balance/refresh")
-  },
   computed: {
     balance() {
       return this.$store.state.balance.balance

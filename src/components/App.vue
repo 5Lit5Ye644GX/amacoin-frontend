@@ -3,10 +3,10 @@
     <Header/>
     <div class="container">
       <div class="row">
-        <transactions v-bind:transactions="transactions" />
+        <transactions />
       </div>
       <div class="row">
-        <Addresses v-bind:addresses="addresses"/>
+        <Addresses/>
         <Stats v-bind:stats="stats"/>
       </div>
     </div>
@@ -34,16 +34,11 @@ export default {
     this.$store.dispatch("stats/refresh")
     this.$store.dispatch("transactions/refresh")
     this.$store.dispatch("addresses/refresh")
+    this.$store.dispatch("balance/refresh")
   },
   computed: {
-    transactions() {
-      return this.$store.getters.transactions
-    },
     stats() {
       return this.$store.getters.stats
-    },
-    addresses() {
-      return this.$store.getters.addresses
     }
   },
   methods:{

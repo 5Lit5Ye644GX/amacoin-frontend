@@ -9,6 +9,7 @@
           <ul v-if="addresses.length > 0" class="list-group">
             <AddressItem v-for="address in addresses" v-bind:address="address" v-bind:key="address.address"/>
           </ul>
+          <b-pagination v-if="totalPagination > pagination.per_page" :hide-goto-end-buttons="this.pagination.hideEndButton" size="md" align="center" @input="" @change="nextPage" :total-rows="totalPagination" v-model="pagination.current_page" :per-page="pagination.per_page"></b-pagination>
           <NoAddress v-if="addresses.length == 0"/>
         </div>
         <hr>
@@ -30,8 +31,38 @@ export default {
   },
   name: 'Addresses',
   props: {
-    error: String,
-    addresses: Array
+    error: String
+  },
+  computed:{
+    totalPagination() {
+      return this.$store.getters.addresses.length
+    },
+    addresses() {
+      return this.$store.getters.addresses.slice(this.pagination.to,this.pagination.from)
+    },
+  },
+  data () {
+    return {
+      pagination:{
+        per_page: 4,    // required
+        current_page: 1, // required
+        last_page: 0,   // required
+        to:0,
+        from:4,
+        hideEndButton:true
+      }
+    }
+  },
+  methods:{
+    nextPage(nextPage){
+      if(nextPage > this.pagination.current_page){
+        this.pagination.to = this.pagination.from
+        this.pagination.from = this.pagination.from + this.pagination.per_page
+      }else{
+        this.pagination.to = this.pagination.to - this.pagination.per_page
+        this.pagination.from = this.pagination.from - this.pagination.per_page
+      }
+    }
   }
 }
 </script>

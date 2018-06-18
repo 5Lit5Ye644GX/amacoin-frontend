@@ -7,15 +7,17 @@ export default {
   },
   mutations: {
     "app/address"(state, address) {
+      localStorage.setItem("address",address)
       state.address = address
     },
     "app/privateKey"(state, privateKey) {
+      localStorage.setItem("privateKey",privateKey)
       state.privateKey = privateKey
     }
   },
   actions: {
     "app/refresh"(context) {
-      context.commit("app/address", localStorage.getItem("addr"))
+      context.commit("app/address", localStorage.getItem("address"))
       context.commit("app/privateKey", localStorage.getItem("privateKey"))
     }
   },

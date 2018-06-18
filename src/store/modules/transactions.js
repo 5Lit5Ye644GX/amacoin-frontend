@@ -22,9 +22,7 @@ export default {
   },
   actions: {
     "transactions/refresh"(context) {
-      var address = localStorage.getItem("address")
-      var privateKey = localStorage.getItem("privateKey")
-      axios.get(URL_TRANSACTIONS, { 'headers': { 'Authorization': address } })
+      axios.get(URL_TRANSACTIONS, { 'headers': { 'Authorization': this.getters.address } })
       .then((response) => {
         context.commit("transactions/set", response.data)
       })
@@ -35,11 +33,14 @@ export default {
     "transactions/send"(context) {
       axios.post(URL_TRANSACTIONS,context.getters.transaction,{
         headers:{
-          'Authorization': address + "$" + privateKey
+          'Authorization': this.getters.address+'$'+this.getters.privateKey
         }
       })
       .then((response) => {
-        context.commit("transaction/set", response.data)
+        context.commit("transaction/set", {})
+
+        this.dispatch("transactions/refresh")
+        this.dispatch("balance/refresh")
       })
       .catch(function (error) {
         context.commit("transactions/error", error)
@@ -49,6 +50,9 @@ export default {
   getters: {
     transactions: state => {
       return state.list
+    },
+    transactionsReverse: state => {
+      return state.list.reverse()
     },
     transaction: state => {
       return state.transaction

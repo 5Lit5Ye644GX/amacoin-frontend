@@ -15,13 +15,21 @@
           <b-form-input id="privateKey" type="text" v-model="form.privateKey" v-bind:value="privateKey" required placeholder="Enter private key"></b-form-input>
         </b-form-group>
       </form>
+
+
+      <!-- <VueQrcodeReader @decode="onDecode"></VueQrcodeReader> -->
+
+
     </b-modal>
   </div>
 </template>
 
 <script>
-
+import VueQrcodeReader from 'vue-qrcode-reader'
 export default {
+  components:{
+    VueQrcodeReader
+  },
   name: 'ModalConnection',
   props: {
     datatarget: String,
@@ -51,10 +59,10 @@ export default {
   mounted(){
     var addrPrivateKey = this.$route.params.addrPrivateKey
 
-    var addr = localStorage.getItem('addr')
+    var addr = localStorage.getItem('address')
     var privateKey = localStorage.getItem('privateKey')
 
-    if(addrPrivateKey != "" && addrPrivateKey != undefined){
+    if(!this._.isEmpty(addrPrivateKey) && !this._.isUndefined(addrPrivateKey)){
       this.setAddrAndPrivateKeyInLocalStorage(addrPrivateKey)
     }else if(addr != null && addr != "" && privateKey != null && privateKey != ""){
 
@@ -65,17 +73,9 @@ export default {
   methods: {
     setAddrAndPrivateKeyInLocalStorage(addrPrivateKey){
       if (addrPrivateKey != null || addrPrivateKey != undefined){
-        localStorage.setItem('addr', addrPrivateKey.split("$")[0])
-        localStorage.setItem('privateKey', addrPrivateKey.split("$")[1])
+        this.$store.commit("app/address", addrPrivateKey.split("$")[0])
+        this.$store.commit("app/privateKey", addrPrivateKey.split("$")[1])
       }
-    },
-    onSubmit () {
-      console.log(this.form.address)
-    },
-    onReset () {
-      console.log(this.form.privateKey)
-    },
-    openQrReader (){
     },
     setForm(){
       this.form.address = this.$store.getters.address
@@ -91,9 +91,6 @@ export default {
       }
     },
     handleSubmit () {
-      localStorage.setItem("address",this.form.address)
-      localStorage.setItem("privateKey",this.form.privateKey)
-
       this.$store.commit("app/address", this.form.address)
       this.$store.commit("app/privateKey", this.form.privateKey)
 

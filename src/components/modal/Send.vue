@@ -57,20 +57,19 @@ export default {
     datatarget: String,
     id: String
   },
+  mounted(){
+    var addr = this.$route.params.addr
+    if(!this._.isEmpty(addr) && !this._.isUndefined(addr)){
+      this.form.transaction.to = addr
+      this.$refs.modal_send.show()
+    }
+  },
   computed: {
     addresses() {
       return this.$store.getters.addresses
     }
   },
   methods: {
-    onSubmit () {
-      console.log(this.form.address)
-    },
-    onReset () {
-      console.log(this.form.privateKey)
-    },
-    openQrReader (){
-    },
     setForm(){
       this.form.transaction.from = this.$store.getters.address
     },

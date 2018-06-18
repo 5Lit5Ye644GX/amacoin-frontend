@@ -4,8 +4,8 @@
     <div class="btn-text">Receive</div>
     <b-modal id="modalReceive" ref="modal_receive" centered title="Connection setup" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
       <form @submit.stop.prevent="handleSubmit" class="text-center">
-  <h4><b-badge>{{address}}</b-badge></h4>
-        <Qrcode :value="address" :options="qrcode_options"/>
+        <h4><b-badge>{{address}}</b-badge></h4>
+        <Qrcode value="" :options="qrcode_options"/>
       </form>
     </b-modal>
   </div>
@@ -13,6 +13,9 @@
 
 <script>
 import Qrcode from '@xkeshi/vue-qrcode'
+
+var host = location.host
+
 export default {
   components:{
     Qrcode
@@ -31,7 +34,8 @@ export default {
     return {
       qrcode_options:{
         size:200,
-        foreground: "#ef8b1b"
+        foreground: "#ef8b1b",
+        value: `http://${host}/#/send/${localStorage.getItem("address")}`
       },
       form:{
         address:"",
