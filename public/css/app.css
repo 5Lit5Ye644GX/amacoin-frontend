@@ -26,3 +26,7 @@ body, html{
 .btn-amaris:hover{
   background: #d07817;
 }
+
+h6 {
+  letter-spacing: 1.5px;
+}

@@ -48,6 +48,7 @@ export default {
   color:#FFF;
   font-weight: lighter;
   text-decoration: none;
+  letter-spacing: 1.5px;
 }
 .nav li{
   padding: 0px 25px 0px 0;
