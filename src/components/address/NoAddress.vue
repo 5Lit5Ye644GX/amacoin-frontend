@@ -2,7 +2,7 @@
   <div>
     <i class="fas fa-user-circle"></i>
     <br>
-    <span>You are not addresses yet</span>
+    <span>Sorry, there is no address available for now...</span>
   </div>
 </template>
 <script>

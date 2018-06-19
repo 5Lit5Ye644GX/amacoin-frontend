@@ -5,11 +5,13 @@
         <h6 class="text-uppercase">Addresses</h6>
         <hr>
         <div class="content">
-
           <ul v-if="addresses.length > 0" class="list-group">
-            <AddressItem v-for="address in addresses" v-bind:address="address" v-bind:key="address.address"/>
+            <AddressItem v-for="address in addresses" :address="address" :key="address.address"/>
           </ul>
-          <b-pagination v-if="totalPagination > pagination.per_page" :hide-goto-end-buttons="this.pagination.hideEndButton" size="md" align="center" @input="" @change="nextPage" :total-rows="totalPagination" v-model="pagination.current_page" :per-page="pagination.per_page"></b-pagination>
+          <b-pagination v-if="totalPagination > pagination.per_page" 
+            :hide-goto-end-buttons="this.pagination.hideEndButton" size="md" align="center" 
+            @change="nextPage" :total-rows="totalPagination" v-model="pagination.current_page" 
+            :per-page="pagination.per_page"></b-pagination>
           <NoAddress v-if="addresses.length == 0"/>
         </div>
         <hr>

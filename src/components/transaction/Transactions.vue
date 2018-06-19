@@ -2,18 +2,21 @@
   <div class="col-12 my-3">
     <div class="card">
       <div class="card-body">
-        <h6 class="text-uppercase">Recent transactions !</h6>
+        <h6 class="text-uppercase">Recent transactions</h6>
         <hr>
         <div class="row" v-if="error">
           <div class="alert alert-danger" role="alert">
-            {{error}}
+            {{ error }}
           </div>
         </div>
         <div class="content">
           <ul v-if="transactions.length > 0" class="list-group">
-            <TransactionItem v-for="transaction in transactions" v-bind:transaction="transaction" v-bind:key="transaction.date"/>
+            <TransactionItem v-for="transaction in transactions" :transaction="transaction" :key="transaction.date"/>
           </ul>
-          <b-pagination v-if="totalPagination > pagination.per_page" :hide-goto-end-buttons="this.pagination.hideEndButton" size="md" align="center" @input="" @change="nextPage" :total-rows="totalPagination" v-model="pagination.current_page" :per-page="pagination.per_page"></b-pagination>
+          <b-pagination v-if="totalPagination > pagination.per_page" 
+            :hide-goto-end-buttons="this.pagination.hideEndButton" size="md" align="center"
+            @change="nextPage" :total-rows="totalPagination" v-model="pagination.current_page" 
+            :per-page="pagination.per_page"></b-pagination>
           <NoTransaction v-if="transactions.length == 0"/>
         </div>
         <hr>
