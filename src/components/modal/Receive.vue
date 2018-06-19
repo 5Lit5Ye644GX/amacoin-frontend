@@ -2,9 +2,9 @@
   <div>
     <b-btn v-b-modal.modalReceive class="btn btn-receive"></b-btn>
     <div class="btn-text">Receive</div>
-    <b-modal id="modalReceive" ref="modal_receive" centered title="Connection setup" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
+    <b-modal id="modalReceive" ref="modal_receive" centered title="Receive Amacoin" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
       <form @submit.stop.prevent="handleSubmit" class="text-center">
-        <h4><b-badge>{{address}}</b-badge></h4>
+        <b-form-input :value="address" disabled="true"></b-form-input>
         <Qrcode value="" :options="qrcode_options"/>
       </form>
     </b-modal>
@@ -52,6 +52,7 @@ export default {
     },
     handleOk (evt) {
       evt.preventDefault()
+      this.handleSubmit()
     },
     handleSubmit () {
       this.$refs.modal_receive.hide()
@@ -97,5 +98,9 @@ export default {
   text-align: center;
   color:#494948;
   margin: 5px 0;
+}
+
+.form-control {
+  margin-bottom: 1.5em;
 }
 </style>

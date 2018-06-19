@@ -1,26 +1,24 @@
 <template>
   <div>
 
-
-
     <b-btn v-b-modal.modalSend class="btn btn-send"></b-btn>
     <div class="btn-text">Send</div>
-    <b-modal id="modalSend" ref="modal_send" centered title="Send AMACOIN" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk" @cancel="handleCancel">
+    <b-modal id="modalSend" ref="modal_send" centered title="New Transaction" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk" @cancel="handleCancel">
       <form @submit.stop.prevent="handleSubmit">
         <b-alert :show="dismissSendErrorCountDown" dismissible variant="danger" @dismissed="dismissSendErrorCountDown=0" @dismiss-count-down="countDownChanged">
           <p>{{form.error}}</p>
         </b-alert>
 
-        <b-form-group label="Your address : " label-for="address">
+        <b-form-group label="Send from" label-for="address">
           <b-form-input id="from" readonly type="text" v-model="form.transaction.from" v-bind:value="form.transaction.from" required placeholder="Your address"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Send to : " label-for="address">
+        <b-form-group label="Send to" label-for="address">
           <b-form-input id="to" type="text" list="send-to" v-model="form.transaction.to" v-bind:value="form.transaction.to" required placeholder="Delivry address"></b-form-input>
           <AddressesDatalist v-bind:addresses="addresses" id="send-to"></AddressesDatalist>
         </b-form-group>
 
-        <b-form-group label="Amount : " label-for="amount">
+        <b-form-group label="Amount" label-for="amount">
           <b-form-input id="amount" type="number" v-model.number="form.transaction.amount" v-bind:value="form.transaction.amount" required placeholder="Amount"></b-form-input>
         </b-form-group>
       </form>
