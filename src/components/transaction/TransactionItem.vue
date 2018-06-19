@@ -4,18 +4,18 @@
     <div class="px-2">{{ date }}</div>
   <div class="d-flex flex-wrap">
     <div class="px-2">
-      <span v-bind:class="{'badge badge-light': transaction.from == address, 'badge badge-info': transaction.from != address }">
-        <span class="d-lg-none">{{ toSlice }}</span>
-        <span class="d-none d-lg-block">{{transaction.to}}</span>
+      <span v-bind:class="{'badge badge-light': transaction.from !== address, 'badge badge-info': transaction.from === address }">
+        <span class="d-lg-none">{{ fromSlice }}</span>
+        <span class="d-none d-lg-block">{{transaction.from}}</span>
       </span>
     </div>
     <div class="px-2">
       <i class="fas fa-arrow-right"></i>
     </div>
     <div class="px-2">
-      <span v-bind:class="{'badge badge-info': transaction.from == address, 'badge badge-light': transaction.from != address }">
-        <span class="d-lg-none">{{ fromSlice }}</span>
-        <span class="d-none d-lg-block">{{transaction.from}}</span>
+      <span v-bind:class="{'badge badge-info': transaction.to === address, 'badge badge-light': transaction.to !== address }">
+        <span class="d-lg-none">{{ toSlice }}</span>
+        <span class="d-none d-lg-block">{{transaction.to}}</span>
       </span>
     </div>
   </div>
