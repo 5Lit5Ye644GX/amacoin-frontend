@@ -19,7 +19,7 @@
         </b-form-group>
 
         <b-form-group label="Amount" label-for="amount">
-          <b-form-input id="amount" type="number" v-model.number="form.transaction.amount" v-bind:value="form.transaction.amount" required placeholder="Amount"></b-form-input>
+          <b-form-input id="amount" type="number" v-model.number="form.transaction.amount" v-bind:value="form.transaction.amount" required placeholder="Amount" step="0.01"></b-form-input>
         </b-form-group>
       </form>
     </b-modal>
