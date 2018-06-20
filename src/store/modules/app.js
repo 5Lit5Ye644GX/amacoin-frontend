@@ -1,5 +1,3 @@
-import settings from "../../settings"
-
 export default {
   state:{
     address: "",

@@ -35,7 +35,7 @@ export default {
       qrcode_options:{
         size:200,
         foreground: "#ef8b1b",
-        value: `http://${host}/#/send/${localStorage.getItem("address")}`
+        value: `http://${host}/#/send/${this.$store.getters.address}`
       },
       form:{
         address:"",
