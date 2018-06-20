@@ -4,8 +4,8 @@
     <div class="btn-text">Receive</div>
     <b-modal id="modalReceive" ref="modal_receive" centered title="Receive Amacoin" :header-text-variant="dark" :body-text-variant="dark" @shown="setForm" @ok="handleOk">
       <form @submit.stop.prevent="handleSubmit" class="text-center">
-        <b-form-input :value="address" disabled="true"></b-form-input>
-        <Qrcode value="" :options="qrcode_options"/>
+        <b-form-input :value="address" :disabled="true"></b-form-input>
+        <Qrcode :value="form.address" :options="qrcode_options"/>
       </form>
     </b-modal>
   </div>
@@ -35,7 +35,7 @@ export default {
       qrcode_options:{
         size:200,
         foreground: "#ef8b1b",
-        value: `http://${host}/#/send/${this.$store.getters.address}`
+        value: `http://${host}/#/send/`
       },
       form:{
         address:"",
@@ -49,6 +49,7 @@ export default {
   methods: {
     setForm(){
       this.form.address = this.$store.getters.address
+      this.qrcode_options.value += this.$store.getters.address
     },
     handleOk (evt) {
       evt.preventDefault()
